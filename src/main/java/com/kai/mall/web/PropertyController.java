@@ -37,9 +37,9 @@ public class PropertyController {
         return bean;
     }
 
-    @GetMapping("/category/{cid}/properties")
+    @GetMapping("/categories/{cid}/properties")
     public Page4Navigator<Property> list(@RequestParam(value = "start",defaultValue = "0") int start,
-                                         @RequestParam(value = "start",defaultValue = "0") int size,
+                                         @RequestParam(value = "size",defaultValue = "10") int size,
                                          @PathVariable("cid") int cid) throws Exception{
 
         start = start<0?0:start;
