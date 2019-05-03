@@ -47,7 +47,7 @@
 	    }
     }	
     
-    //判断是否数字 (小数和整数)
+    //Whether it is number
 	function checkNumber(value, text){
 		
 		if(value.length==0){
@@ -60,7 +60,7 @@
 		}
 		return true;
 	}
-    //判断是否整数
+    //Whether it is integer
 	function checkInt(value, text){
 		
 		if(value.length==0){
@@ -74,14 +74,14 @@
 		return true;
 	}
 	
-    //确实是否要删除
+    //Confirm delete
 	function checkDeleteLink(){
 		var confirmDelete = confirm("Confirm delete");
 		if(confirmDelete)
 			return true;
 		return false;		
 	}
-    //跳转函数
+    //Jump function
     function jump(page,vue){
 		if('first'== page && !vue.pagination.first)
 			vue.list(0);
@@ -95,7 +95,7 @@
 		else if('last'== page && !vue.pagination.last)
 			vue.list(vue.pagination.totalPages-1);    	
     }
-    //跳转函数
+    //Jump to page
     function jumpByNumber(start,vue){
     	if(start!=vue.pagination.number)
 			vue.list(start);       	
