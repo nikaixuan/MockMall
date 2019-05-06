@@ -1,5 +1,8 @@
 package com.kai.mall.pojo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 /**
@@ -7,13 +10,16 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "productimage")
+@JsonIgnoreProperties({ "handler","hibernateLazyInitializer"})
 public class ProductImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+    @ManyToOne
     @JoinColumn(name = "pid")
+    @JsonBackReference
     private Product product;
     @Column(name = "type")
     private String type;

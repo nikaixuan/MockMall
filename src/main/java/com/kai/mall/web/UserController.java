@@ -5,6 +5,7 @@ import com.kai.mall.service.UserService;
 import com.kai.mall.util.Page4Navigator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,4 +24,7 @@ public class UserController {
         start = start>0?0:start;
         return userService.list(start,size,10);
     }
+
+
+
 }

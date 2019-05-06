@@ -92,11 +92,14 @@
             <thead>
             <tr class="success">
                 <th>ID</th>
+                <th>Product Image</th>
                 <th>Product Name</th>
                 <th>Subtitle</th>
                 <th>Original Price</th>
                 <th>Promote Price</th>
                 <th>Stock</th>
+                <th>Image Management</th>
+                <th>Property Management</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -104,6 +107,9 @@
             <tbody>
             <tr v-for="bean in beans ">
                 <td>{{bean.id}}</td>
+                <td>
+                    <img v-if="null != bean.firstProductImage" width="40px" :src="'img/productSingle/'+bean.firstProductImage.id+'.jpg'">
+                </td>
                 <td>
                     {{bean.name}}
                 </td>

@@ -1,6 +1,7 @@
 package com.kai.mall.web;
 
 import com.kai.mall.pojo.Product;
+import com.kai.mall.service.ProductImageService;
 import com.kai.mall.service.ProductService;
 import com.kai.mall.util.Page4Navigator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,16 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
+    @Autowired
+    ProductImageService productImageService;
 
     @GetMapping("/categories/{cid}/products")
     public Page4Navigator<Product> list(@PathVariable("cid") int cid, @RequestParam(value = "start", defaultValue = "0")
     int start, @RequestParam(value = "size", defaultValue = "10") int size) throws Exception{
         start = start<0?0:start;
-        return productService.list(cid,start,size,5);
+        Page4Navigator<Product> page = productService.list(cid,start,size,5);
+        productImageService.setFirstProductImages(page.getContent());
+        return page;
     }
 
     @PostMapping("/products")

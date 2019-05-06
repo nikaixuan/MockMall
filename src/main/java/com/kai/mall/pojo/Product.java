@@ -1,6 +1,7 @@
 package com.kai.mall.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -34,6 +35,9 @@ public class Product {
     private Category category;
     @Column(name = "createDate")
     private Date createDate;
+
+    @Transient
+    private ProductImage firstProductImage;
 
     public int getId() {
         return id;
@@ -97,6 +101,14 @@ public class Product {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public ProductImage getFirstProductImage() {
+        return firstProductImage;
+    }
+
+    public void setFirstProductImage(ProductImage firstProductImage) {
+        this.firstProductImage = firstProductImage;
     }
 
     @Override
