@@ -62,13 +62,13 @@ public class ProductImageController {
         String fileName = file.getName();
         if (!file.getParentFile().exists()){
             file.getParentFile().mkdirs();
-            try{
-                image.transferTo(file);
-                BufferedImage img = ImageUtil.change2jpg(file);
-                ImageIO.write(img,"jpg",file);
-            }catch (IOException e){
-                e.printStackTrace();
-            }
+        }
+        try{
+            image.transferTo(file);
+            BufferedImage img = ImageUtil.change2jpg(file);
+            ImageIO.write(img,"jpg",file);
+        }catch (IOException e){
+            e.printStackTrace();
         }
         if(ProductImageService.type_single.equals(bean.getType())){
             String imageFolder_small= request.getServletContext().getRealPath("img/productSingle_small");

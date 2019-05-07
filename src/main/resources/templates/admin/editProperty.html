@@ -14,10 +14,10 @@
         }
 
         var vue = new Vue({
-            el:"workingArea",
+            el:"#workingArea",
             data: data4Vue,
             mounted: function(){
-              this.get();
+                this.get();
             },
             methods:{
                 get: function () {
@@ -29,8 +29,10 @@
                     })
                 },
                 update: function(){
+                    alert(this.bean.name)
                     if (!checkEmpty(this.bean.name,"Property Name"))
                             return;
+
                     var url = this.uri;
                     axios.put(url,vue.bean).then(function(response){
                         location.href = vue.ListURL+"?cid="+vue.category.id;

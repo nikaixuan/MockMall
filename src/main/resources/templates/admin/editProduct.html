@@ -7,14 +7,14 @@
 <script>
     $(function(){
         var data4Vue = {
-            uri: "properties",
+            uri: "products",
             ListURL:"admin_product_list",
             bean:"",
             category:""
-        }
+        };
 
         var vue = new Vue({
-            el:"workingArea",
+            el:"#workingArea",
             data: data4Vue,
             mounted: function(){
                 this.get();

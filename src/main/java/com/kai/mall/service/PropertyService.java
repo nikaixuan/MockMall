@@ -41,6 +41,10 @@ public class PropertyService {
         propertyDAO.deleteById(id);
     }
 
+    public List<Property> listByCategory(Category category){
+        return propertyDAO.findByCategory(category);
+    }
+
     public Page4Navigator<Property> list(int cid, int start, int size, int navigatePages){
 
         Category category = categoryService.get(cid);

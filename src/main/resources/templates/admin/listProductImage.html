@@ -49,7 +49,6 @@
                     if (!checkEmpty(vue.singleFile," Single Product Image"))
                             return;
                     var formData = new FormData();
-                    alert("asd")
                     formData.append("image",vue.singleFile);
                     var url = vue.uri+"?type=single&pid="+pid;
                     axios.post(url,formData).then(function(response){
