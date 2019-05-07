@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="include/admin/adminHeader::html('Management System')" ></head>
+<head>
+
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<script>
+    $(function () {
+        var data4Vue = {
+            uri: "login",
+            listURL:'admin_category_list',
+            bean:{id:"",password:""}
+        };
+        var vue = new Vue({
+            el: "#workingArea",
+            data: data4Vue,
+            mounted:function(){ //mounted　means the Vue object load successfully
+            },
+            methods:{
+                login:function(){
+                    var url = this.uri;
+                    axios.post(url,vue.bean).then(function(response){
+                        if(response.data.length==0){
+                            alert("Error")
+                        }else {
+                            location.href = vue.listURL;
+                        }
+                    })
+
+                }
+            }
+        })
+    })
+</script>
+<div id="workingArea">
+    <table>
+        <tr>
+            <td>Username: </td>
+            <td>
+                <input v-model.trim="bean.id" type="text">
+            </td>
+        </tr>
+        <tr>
+            <td>Password: </td>
+            <td>
+                <input v-model.trim="bean.password" type="password">
+            </td>
+        </tr>
+        <tr class="submitTR">
+            <td colspan="2" align="center">
+                <a href="#nowhere"  @click="login" class="btn btn-success">Login</a>
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+</body>
+</html>

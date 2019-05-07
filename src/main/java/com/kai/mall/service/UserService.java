@@ -25,4 +25,8 @@ public class UserService {
 
         return new Page4Navigator<>(userDAO.findAll(pageable),navigatePage);
     }
+
+    public User findById(int id){
+        return userDAO.findById(id).get();
+    }
 }
