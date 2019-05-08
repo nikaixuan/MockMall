@@ -2,6 +2,7 @@ package com.kai.mall.service;
 
 import com.kai.mall.dao.CategoryDAO;
 import com.kai.mall.pojo.Category;
+import com.kai.mall.pojo.Product;
 import com.kai.mall.util.Page4Navigator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,7 +20,7 @@ import java.util.List;
 public class CategoryService {
 
     @Autowired
-    CategoryDAO categoryDAO;
+    private CategoryDAO categoryDAO;
 
     public Page4Navigator<Category> list(int start, int size, int navigatePages){
 
@@ -44,6 +45,30 @@ public class CategoryService {
     }
     public void update(Category bean){
         categoryDAO.save(bean);
+    }
+
+    public void removeCategoryFromProduct(List<Category> cs) {
+        for (Category category : cs) {
+            removeCategoryFromProduct(category);
+        }
+    }
+
+    public void removeCategoryFromProduct(Category category) {
+        List<Product> products =category.getProducts();
+        if(null!=products) {
+            for (Product product : products) {
+                product.setCategory(null);
+            }
+        }
+
+        List<List<Product>> productsByRow =category.getProductsByRow();
+        if(null!=productsByRow) {
+            for (List<Product> ps : productsByRow) {
+                for (Product p: ps) {
+                    p.setCategory(null);
+                }
+            }
+        }
     }
 
 
