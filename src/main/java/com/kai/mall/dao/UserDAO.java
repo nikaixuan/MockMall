@@ -10,4 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
  */
 @Repository
 public interface UserDAO extends JpaRepository<User, Integer> {
+    User findByName(String name);
+    User getByNameAndPassword(String name, String password);
 }

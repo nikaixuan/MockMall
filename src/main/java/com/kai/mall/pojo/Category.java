@@ -24,6 +24,7 @@ public class Category {
     List<Product> products;
     @Transient
     List<List<Product>> productsByRow;
+    
 
 
     public int getId() {

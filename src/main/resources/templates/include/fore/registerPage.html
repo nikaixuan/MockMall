@@ -1,0 +1,92 @@
+<div th:fragment="html" xmlns:th="http://www.w3.org/1999/xhtml">
+    <script>
+        $(function(){
+            var data4Vue = {
+                uri:'foreregister',
+                result: [],
+                user:{name:'', password:'', repeatpassword:''}
+            };
+            //ViewModel
+            var vue = new Vue({
+                el: '#workingArea',
+                data: data4Vue,
+                mounted:function(){
+                    linkDefaultActions();
+                },
+                methods: {
+                    register:function(){
+                        var url =  this.uri;
+                        if(0==this.user.name.length){
+                            $("span.errorMessage").html("Require username");
+                            $("div.registerErrorMessageDiv").css("visibility","visible");
+                            return;
+                        }
+                        if(0==this.user.password.length){
+                            $("span.errorMessage").html("Require password");
+                            $("div.registerErrorMessageDiv").css("visibility","visible");
+                            return;
+                        }
+                        if(0==this.user.repeatpassword.length){
+                            $("span.errorMessage").html("Repeat the password");
+                            $("div.registerErrorMessageDiv").css("visibility","visible");
+                            return;
+                        }
+                        if(this.user.password !=this.user.repeatpassword){
+                            $("span.errorMessage").html("Password does not match");
+                            $("div.registerErrorMessageDiv").css("visibility","visible");
+                            return;
+                        }
+
+                        axios.post(url,this.user).then(function(response) {
+                            var result = response.data;
+                            if(result.code==0){
+                                location.href="registerSuccess";
+                            }
+                            else{
+                                $("span.errorMessage").html(result.message);
+                                $("div.registerErrorMessageDiv").css("visibility","visible");
+                            }
+                        });
+                    }
+                }
+            });
+        })
+    </script>
+    <div class="registerDiv">
+        <div class="registerErrorMessageDiv">
+            <div class="alert alert-danger" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
+                <span class="errorMessage"></span>
+            </div>
+        </div>
+
+        <table class="registerTable" align="center">
+            <tr>
+                <td  class="registerTip registerTableLeftTD">Username</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="registerTableLeftTD">Username</td>
+                <td  class="registerTableRightTD"><input v-model="user.name" placeholder="Cannot change" > </td>
+            </tr>
+            <tr>
+                <td  class="registerTip registerTableLeftTD">Password</td>
+                <td  class="registerTableRightTD"></td>
+            </tr>
+            <tr>
+                <td class="registerTableLeftTD">Password</td>
+                <td class="registerTableRightTD"><input v-model="user.password"  type="password"  placeholder="Your password" > </td>
+            </tr>
+            <tr>
+                <td class="registerTableLeftTD">Password confirmation</td>
+                <td class="registerTableRightTD"><input v-model="user.repeatpassword"   type="password"  placeholder="Password again" > </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" class="registerButtonTD">
+                    <a @click="register"><button>Submit</button></a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

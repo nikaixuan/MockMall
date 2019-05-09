@@ -29,4 +29,21 @@ public class UserService {
     public User findById(int id){
         return userDAO.findById(id).get();
     }
+
+    public User findByName(String name){
+        return userDAO.findByName(name);
+    }
+
+    public void add(User bean){
+        userDAO.save(bean);
+    }
+
+    public boolean isExist(String name){
+        User user = userDAO.findByName(name);
+        return user!=null;
+    }
+
+    public User get(String name, String password) {
+        return userDAO.getByNameAndPassword(name,password);
+    }
 }
