@@ -16,9 +16,9 @@ public class LoginController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/login")
+    @PostMapping("/serverlogin")
     public User login(@RequestBody User bean){
-        User user = userService.findById(bean.getId());
+        User user = userService.findByName(bean.getName());
         if (user!=null&&user.getPassword().equals(bean.getPassword())){
             return user;
         }else {

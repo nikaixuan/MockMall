@@ -3,6 +3,7 @@ package com.kai.mall.service;
 import com.kai.mall.dao.OrderItemDAO;
 import com.kai.mall.pojo.Order;
 import com.kai.mall.pojo.OrderItem;
+import com.kai.mall.pojo.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +41,20 @@ public class OrderItemService {
 
     public List<OrderItem> listByOrder(Order order) {
         return orderItemDAO.findByOrderOrderByIdDesc(order);
+    }
+
+    public int getSaleCount(Product product){
+        List<OrderItem>list = orderItemDAO.findByProduct(product);
+        int saleCount = 0;
+        for (OrderItem oi:list){
+            if (oi.getOrder()!=null&&oi.getOrder().getPayDate()!=null){
+                saleCount+=oi.getNumber();
+            }
+        }
+        return saleCount;
+    }
+
+    public List<OrderItem> listByProduct(Product product){
+        return orderItemDAO.findByProduct(product);
     }
 }

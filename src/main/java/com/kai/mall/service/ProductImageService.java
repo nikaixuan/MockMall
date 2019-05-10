@@ -47,7 +47,7 @@ public class ProductImageService {
         if(!singleImages.isEmpty())
             product.setFirstProductImage(singleImages.get(0));
         else
-            product.setFirstProductImage(new ProductImage()); //这样做是考虑到产品还没有来得及设置图片，但是在订单后台管理里查看订单项的对应产品图片。
+            product.setFirstProductImage(new ProductImage());
 
     }
     public void setFirstProductImages(List<Product> products) {

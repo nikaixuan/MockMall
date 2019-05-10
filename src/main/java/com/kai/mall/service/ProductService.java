@@ -25,6 +25,8 @@ public class ProductService {
     CategoryService categoryService;
     @Autowired
     ProductImageService productImageService;
+    @Autowired
+    OrderItemService orderItemService;
 
     public void add(Product bean){
         productDAO.save(bean);
@@ -86,5 +88,9 @@ public class ProductService {
 
     public List<Product> listByCategory(Category category){
         return productDAO.findByCategoryOrderById(category);
+    }
+
+    public void setSaleAndReviewNumber(Product p){
+
     }
 }
