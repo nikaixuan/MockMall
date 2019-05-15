@@ -27,6 +27,8 @@ public class ProductService {
     ProductImageService productImageService;
     @Autowired
     OrderItemService orderItemService;
+    @Autowired
+    ReviewService reviewService;
 
     public void add(Product bean){
         productDAO.save(bean);
@@ -91,6 +93,22 @@ public class ProductService {
     }
 
     public void setSaleAndReviewNumber(Product p){
+        int salesCount = orderItemService.getSaleCount(p);
+        p.setSaleCount(salesCount);
+        int reviewCount = reviewService.getCount(p);
+        p.setReviewCount(reviewCount);
+    }
 
+    public void setSaleAndReviewNumber(List<Product> products){
+        for (Product product:products){
+            setSaleAndReviewNumber(product);
+        }
+    }
+
+    public List<Product> search(String keyword, int start, int size){
+        Sort sort = new Sort(Sort.Direction.DESC,"id");
+        Pageable pageable = PageRequest.of(start,size,sort);
+        List<Product> products = productDAO.findByNameLike("%"+keyword+"%",pageable);
+        return products;
     }
 }

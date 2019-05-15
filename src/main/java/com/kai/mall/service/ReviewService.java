@@ -4,12 +4,14 @@ import com.kai.mall.dao.ReviewDAO;
 import com.kai.mall.pojo.Product;
 import com.kai.mall.pojo.Review;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by nikaixuan on 9/5/19.
  */
+@Service
 public class ReviewService {
     @Autowired
     ReviewDAO reviewDAO;
