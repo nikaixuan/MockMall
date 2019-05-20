@@ -2,6 +2,8 @@ package com.kai.mall.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * Created by nikaixuan on 8/5/19.
  */
@@ -72,7 +74,8 @@ public class ForePageController {
         return "fore/search";
     }
     @GetMapping("/forelogout")
-    public String logout( ) {
+    public String logout(HttpSession session) {
+        session.removeAttribute("user");
         return "redirect:home";
     }
 }

@@ -111,4 +111,8 @@ public class ProductService {
         List<Product> products = productDAO.findByNameLike("%"+keyword+"%",pageable);
         return products;
     }
+
+    public Product get(int id){
+        return productDAO.getOne(id);
+    }
 }

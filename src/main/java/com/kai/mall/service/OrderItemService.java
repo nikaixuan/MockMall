@@ -75,4 +75,8 @@ public class OrderItemService {
     public OrderItem get(int id){
         return orderItemDAO.getOne(id);
     }
+
+    public void delete(int id){
+        orderItemDAO.deleteById(id);
+    }
 }
