@@ -1,6 +1,7 @@
 package com.kai.mall.service;
 
 import com.kai.mall.dao.ProductImageDAO;
+import com.kai.mall.pojo.OrderItem;
 import com.kai.mall.pojo.Product;
 import com.kai.mall.pojo.ProductImage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,12 @@ public class ProductImageService {
     public void setFirstProductImages(List<Product> products) {
         for (Product product : products)
             setFirstProductImage(product);
+    }
+
+    public void setFirstProdutImagesOnOrderItems(List<OrderItem> ois){
+        for (OrderItem oi:ois){
+            setFirstProductImage(oi.getProduct());
+        }
     }
 
 }

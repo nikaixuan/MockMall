@@ -27,6 +27,8 @@ public class ForeRESTController {
     ReviewService reviewService;
     @Autowired
     PropertyValueService propertyValueService;
+    @Autowired
+    OrderItemService orderItemService;
 
     @GetMapping("/forehome")
     public Object home(){
@@ -141,6 +143,71 @@ public class ForeRESTController {
         productImageService.setFirstProductImages(products);
         productService.setSaleAndReviewNumber(products);
         return products;
+    }
+
+    @PostMapping("forebuyone")
+    public Object buyOne(int pid, int num, HttpSession session){
+        return buyAddCart(pid,num,session);
+    }
+
+    public int buyAddCart(int pid, int num, HttpSession session){
+        Product product = productService.getById(pid);
+        int oiid = 0;
+        boolean found = false;
+        User user = (User) session.getAttribute("user");
+        List<OrderItem> orderItemList = orderItemService.listByUser(user);
+        for (OrderItem oi : orderItemList) {
+            if(oi.getProduct().getId()==product.getId()){
+                oi.setNumber(oi.getNumber()+num);
+                orderItemService.update(oi);
+                found = true;
+                oiid = oi.getId();
+                break;
+            }
+        }
+
+        if(!found){
+            OrderItem oi = new OrderItem();
+            oi.setUser(user);
+            oi.setProduct(product);
+            oi.setNumber(num);
+            orderItemService.add(oi);
+            oiid = oi.getId();
+        }
+        return oiid;
+    }
+
+    @PostMapping("forebuy")
+    public Object buy(String[] oiid, HttpSession session){
+        List<OrderItem> orderItemList = new ArrayList<>();
+        float total = 0;
+        for (String oid:oiid){
+            int id = Integer.parseInt(oid);
+            OrderItem oi = orderItemService.get(id);
+            total+=oi.getProduct().getPromotePrice()*oi.getNumber();
+            orderItemList.add(oi);
+        }
+        productImageService.setFirstProdutImagesOnOrderItems(orderItemList);
+        session.setAttribute("ois", orderItemList);
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("orderItems", orderItemList);
+        map.put("total", total);
+        return Result.success(map);
+    }
+
+    @GetMapping("foreaddCart")
+    public Object addCart(int pid, int num, HttpSession session) {
+        buyAddCart(pid,num,session);
+        return Result.success();
+    }
+
+    @GetMapping("forecart")
+    public Object cart(HttpSession session) {
+        User user =(User)  session.getAttribute("user");
+        List<OrderItem> ois = orderItemService.listByUser(user);
+        productImageService.setFirstProdutImagesOnOrderItems(ois);
+        return ois;
     }
 
 }

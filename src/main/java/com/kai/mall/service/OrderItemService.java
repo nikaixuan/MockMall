@@ -4,6 +4,7 @@ import com.kai.mall.dao.OrderItemDAO;
 import com.kai.mall.pojo.Order;
 import com.kai.mall.pojo.OrderItem;
 import com.kai.mall.pojo.Product;
+import com.kai.mall.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,5 +57,22 @@ public class OrderItemService {
 
     public List<OrderItem> listByProduct(Product product){
         return orderItemDAO.findByProduct(product);
+    }
+
+    public List<OrderItem> listByUser(User user) {
+        return orderItemDAO.findByUserAndOrderIsNull(user);
+    }
+
+    public void update(OrderItem orderItem){
+        orderItemDAO.save(orderItem);
+    }
+
+
+    public void add(OrderItem orderItem){
+        orderItemDAO.save(orderItem);
+    }
+
+    public OrderItem get(int id){
+        return orderItemDAO.getOne(id);
     }
 }
