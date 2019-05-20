@@ -24,13 +24,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!-- springboot tomcat 支持 -->
+		<!-- springboot tomcat support -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<!-- 热部署 -->
+		<!-- hot deploy -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -62,27 +62,27 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
 		</dependency>
-		<!-- 用了 elasticsearch 就要加这么一个，不然要com.sun.jna.Native 错误 -->
+		<!--  elasticsearch  -->
 		<dependency>
 			<groupId>com.sun.jna</groupId>
 			<artifactId>jna</artifactId>
 			<version>3.0.9</version>
 		</dependency>
 
-		<!-- thymeleaf legacyhtml5 模式支持 -->
+		<!-- thymeleaf legacyhtml5 -->
 		<dependency>
 			<groupId>net.sourceforge.nekohtml</groupId>
 			<artifactId>nekohtml</artifactId>
 			<version>1.9.22</version>
 		</dependency>
-		<!-- 测试支持 -->
+		<!-- test -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- tomcat的支持.-->
+		<!-- tomcat support.-->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
