@@ -25,7 +25,8 @@
                     load:function(){
                         var url =  this.uri+"/"+pid;
                         axios.get(url).then(function(response) {
-                            var result = response.data;
+                            var result = response;
+                            console.log(response)
                             vue.p=result.data.product;
                             vue.pvs=result.data.pvs;
                             vue.reviews=result.data.reviews;

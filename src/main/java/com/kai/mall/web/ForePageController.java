@@ -55,7 +55,7 @@ public class ForePageController {
     }
     @GetMapping(value="/payed")
     public String payed(){
-        return "fore/payed";
+        return "fore/paid";
     }
     @GetMapping(value="/product")
     public String product(){

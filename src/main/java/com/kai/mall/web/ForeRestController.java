@@ -143,7 +143,7 @@ public class ForeRESTController {
         return products;
     }
 
-    @PostMapping("forebuyone")
+    @GetMapping("forebuyone")
     public Object buyOne(int pid, int num, HttpSession session){
         return buyAddCart(pid,num,session);
     }
@@ -175,7 +175,7 @@ public class ForeRESTController {
         return oiid;
     }
 
-    @PostMapping("forebuy")
+    @GetMapping("forebuy")
     public Object buy(String[] oiid, HttpSession session){
         List<OrderItem> orderItemList = new ArrayList<>();
         float total = 0;
@@ -270,6 +270,7 @@ public class ForeRESTController {
         if(null==user)
             return Result.fail("Required login");
         List<Order> os= orderService.listByUserWithoutDelete(user);
+        orderItemService.fill(os);
         orderService.removeOrderFromOrderItem(os);
         return os;
     }
@@ -334,6 +335,15 @@ public class ForeRESTController {
         reviewService.add(review);
         return Result.success();
     }
+
+    @GetMapping("forecheckLogin")
+    public Object checkLogin( HttpSession session) {
+        User user =(User)  session.getAttribute("user");
+        if(null!=user)
+            return Result.success();
+        return Result.fail("Required login");
+    }
+
 
 
 

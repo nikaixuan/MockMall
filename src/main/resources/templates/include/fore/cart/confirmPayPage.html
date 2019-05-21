@@ -1,0 +1,100 @@
+<div th:fragment="html" xmlns:th="http://www.w3.org/1999/xhtml">
+    <script>
+        $(function(){
+            var oid = getUrlParms("oid");
+            var data4Vue = {
+                uri:'foreconfirmPay',
+                order:[]
+            };
+            //ViewModel
+            var vue = new Vue({
+                el: '#workingArea',
+                data: data4Vue,
+                mounted:function(){
+                    this.load();
+                },
+                methods: {
+                    load:function(){
+                        var url =  this.uri+"?oid="+oid;
+                        axios.get(url).then(function(response) {
+                            vue.order = response.data;
+                        });
+                    }
+                }
+            });
+
+        })
+    </script>
+    <div class="confirmPayPageDiv">
+        <div class="confirmPayImageDiv">
+            <img src="img/site/comformPayFlow.png">
+            <div  class="confirmPayTime1">
+                {{order.createDate|formatDateFilter}}
+            </div>
+            <div  class="confirmPayTime2">
+                {{order.payDate|formatDateFilter}}
+            </div>
+            <div class="confirmPayTime3">
+                yyyy-MM-dd HH:mm:ss
+            </div>
+        </div>
+        <div class="confirmPayOrderInfoDiv">
+            <div class="confirmPayOrderInfoText">Received</div>
+        </div>
+        <div class="confirmPayOrderItemDiv">
+            <div class="confirmPayOrderItemText">Order info</div>
+            <table class="confirmPayOrderItemTable">
+                <thead>
+                <tr>
+                    <th colspan="2">Product</th>
+                    <th width="120px">Price</th>
+                    <th width="120px">Count</th>
+                    <th width="120px">Subtotal </th>
+                    <th width="120px">Deliver fee</th>
+                </tr>
+                </thead>
+                <tr v-for="oi in order.orderItems">
+                    <td><img width="50px" :src="'img/productSingle_middle/'+oi.product.firstProductImage.id+'.jpg'"></td>
+                    <td class="confirmPayOrderItemProductLink">
+                        <a href="#nowhere">{{oi.product.name}}</a>
+                    </td>
+                    <td>${{oi.product.originalPrice|formatMoneyFilter}}</td>
+                    <td>1</td>
+                    <td><span class="conformPayProductPrice">${{oi.product.promotePrice|formatMoneyFilter}}</span></td>
+                    <td><span>Deliver fee: 0.00 </span></td>
+                </tr>
+            </table>
+
+            <div class="confirmPayOrderItemText pull-right">
+                Subtotal <span class="confirmPayOrderItemSumPrice">${{order.total|formatMoneyFilter}}</span>
+            </div>
+
+        </div>
+        <div class="confirmPayOrderDetailDiv">
+
+            <table class="confirmPayOrderDetailTable">
+                <tr>
+                    <td>Order No.:</td>
+                    <td>{{order.orderCode}} <img width="23px" src="img/site/confirmOrderTmall.png"></td>
+                </tr>
+                <tr>
+                    <td>Seller:</td>
+                    <td>Store <span class="confirmPayOrderDetailWangWangGif"></span></td>
+                </tr>
+                <tr>
+                    <td>Deliver info: </td>
+                    <td>{{order.address}}，{{order.receiver}}， {{order.mobile}}，{{order.post}} </td>
+                </tr>
+                <tr>
+                    <td>Time:</td>
+                    <td>{{order.createDate|formatDateFilter}}</td>
+                </tr>
+            </table>
+
+        </div>
+        <div class="confirmPayButtonDiv">
+            <div class="confirmPayWarning">Confirm after receive the product</div>
+            <a :href="'orderConfirmed?oid='+order.id"><button class="confirmPayButton">Confirm pay</button></a>
+        </div>
+    </div>
+</div>

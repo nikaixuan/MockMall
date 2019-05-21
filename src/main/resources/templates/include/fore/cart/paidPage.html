@@ -1,0 +1,60 @@
+<div th:fragment="html" xmlns:th="http://www.w3.org/1999/xhtml">
+    <script>
+        $(function(){
+            var oid = getUrlParms("oid");
+            var total = getUrlParms("total");
+            var data4Vue = {
+                uri:'forepayed',
+                order:[],
+                total:0
+            };
+            //ViewModel
+            var vue = new Vue({
+                el: '#workingArea',
+                data: data4Vue,
+                mounted:function(){
+                    this.total = total;
+                    this.load();
+                },
+                methods: {
+                    load:function(){
+                        var url =  this.uri+"?oid="+oid;
+                        axios.get(url).then(function(response) {
+                            vue.order = response.data;
+                        });
+                    }
+                }
+            });
+
+        })
+
+    </script>
+
+    <div class="payedDiv">
+        <div class="payedTextDiv">
+            <img src="img/site/paySuccess.png">
+            <span>Payment processed</span>
+
+        </div>
+        <div class="payedAddressInfo">
+            <ul>
+                <li>Address: {{order.address}} {{order.receiver}} {{order.mobile }}</li>
+                <li>Total:<span class="payedInfoPrice">
+                    {{total|formatMoney}}
+                </li>
+                <li>Anticipate arrive at    </li>
+            </ul>
+
+            <div class="paedCheckLinkDiv">
+                You can
+                <a class="payedCheckLink" href="bought">Check bought products</a>
+                <a class="payedCheckLink" href="bought">Check details </a>
+            </div>
+
+        </div>
+
+        <div class="payedSeperateLine">
+        </div>
+
+    </div>
+</div>

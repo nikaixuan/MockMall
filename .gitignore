@@ -1,5 +1,7 @@
 HELP.md
 /target/
+/src/main/webapp/img/
+
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
