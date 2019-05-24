@@ -36,15 +36,15 @@ public class PropertyControllerTests {
     public void setupMockMvc(){
         mvc = MockMvcBuilders.webAppContextSetup(wac).build(); //初始化MockMvc对象
         session = new MockHttpSession();
-        User user =new User();
-        session.setAttribute("user",user);
+//        User user =new User();
+//        session.setAttribute("user",user);
     }
 
     @Test
     public void getProperties() throws Exception{
         mvc.perform(MockMvcRequestBuilders.get("/properties/4")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .session(session)
         )
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -66,8 +66,33 @@ public class PropertyControllerTests {
     public void updateProperties() throws Exception{
         String json="{\"id\":5,\"name\":\"size\",\"category\":{\"id\":11,\"name\":\"iPhone\",\"products\":null,\"productsByRow\":null}}";
         mvc.perform(MockMvcRequestBuilders.put("/properties")
-                .content(json.getBytes())
                 .accept(MediaType.APPLICATION_JSON)
+                .content(json.getBytes())
+                .contentType(MediaType.APPLICATION_JSON)
+                .session(session)
+        )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void addProperties() throws Exception{
+        String json="{\"id\":10,\"name\":\"cpu\",\"category\":{\"id\":11}}";
+        mvc.perform(MockMvcRequestBuilders.post("/properties")
+                .accept(MediaType.APPLICATION_JSON)
+                .content(json.getBytes())
+                .contentType(MediaType.APPLICATION_JSON)
+                .session(session)
+        )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void listProperties() throws Exception{
+        mvc.perform(MockMvcRequestBuilders.get("/categories/11/properties")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
                 .session(session)
         )
                 .andExpect(MockMvcResultMatchers.status().isOk())
