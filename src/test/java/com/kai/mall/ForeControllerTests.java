@@ -1,7 +1,7 @@
 package com.kai.mall;
 
+import com.kai.mall.pojo.User;
 import com.kai.mall.service.ProductService;
-import com.kai.mall.service.PropertyService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ProductControllerTests {
+public class ForeControllerTests {
 
     @Autowired
     ProductService productService;
@@ -34,17 +34,40 @@ public class ProductControllerTests {
 
     @Before
     public void setupMockMvc(){
-        mvc = MockMvcBuilders.webAppContextSetup(wac).build(); //初始化MockMvc对象
+        mvc = MockMvcBuilders.webAppContextSetup(wac).build();
         session = new MockHttpSession();
-//        User user =new User();
-//        session.setAttribute("user",user);
+        User user =new User();
+        user.setName("test");
+        user.setPassword("12345");
+        user.setId(2);
+        session.setAttribute("user",user);
+    }
+
+
+    @Test
+    public void buyOneTest() throws Exception{
+        mvc.perform(MockMvcRequestBuilders.get("/forebuyone")
+                .param("pid", "1")
+                .param("num", "2")
+                .session(session)
+        )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
-    public void getProducts() throws Exception{
-        mvc.perform(MockMvcRequestBuilders.get("/products/3")
+    public void homeTest() throws Exception{
+        mvc.perform(MockMvcRequestBuilders.get("/forehome")
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
+        )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void buyTest() throws Exception{
+        mvc.perform(MockMvcRequestBuilders.get("/forebuy")
+                .param("oiid", "11")
                 .session(session)
         )
                 .andExpect(MockMvcResultMatchers.status().isOk())

@@ -255,8 +255,8 @@ public class ForeRESTController {
         return Result.success(map);
     }
 
-    @GetMapping("forepayed")
-    public Object payed(int oid) {
+    @GetMapping("forepaid")
+    public Object paid(int oid) {
         Order order = orderService.get(oid);
         order.setStatus(OrderService.waitDelivery);
         order.setPayDate(new Date());

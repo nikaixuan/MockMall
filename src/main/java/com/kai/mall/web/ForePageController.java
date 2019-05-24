@@ -53,7 +53,7 @@ public class ForePageController {
     public String orderConfirmed(){
         return "fore/orderConfirmed";
     }
-    @GetMapping(value="/payed")
+    @GetMapping(value="/paid")
     public String payed(){
         return "fore/paid";
     }
