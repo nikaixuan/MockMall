@@ -73,4 +73,60 @@ public class ForeControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
     }
+
+    @Test
+    public void boughtTest() throws Exception{
+        mvc.perform(MockMvcRequestBuilders.get("/forebought")
+                .contentType(MediaType.APPLICATION_JSON)
+                .session(session)
+        )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void createOrderTest() throws Exception{
+        String json="{\"id\":6,\"user\":{\"id\":2,\"password\":\"12345\",\"name\":\"test\",\"salt\":null},\"orderCode\":\"201905211737007698221\",\"address\":\"415\\n604 Swanston Street\",\"post\":\"3053\",\"receiver\":\"a\",\"mobile\":\"401856369\",\"userMessage\":\"\",\"createDate\":\"2019-05-21T07:37:01.000+0000\",\"payDate\":\"2019-05-21T07:37:03.000+0000\",\"deliveryDate\":null,\"confirmDate\":\"2019-05-21T07:47:47.000+0000\",\"status\":\"finish\",\"orderItems\":[{\"id\":9,\"product\":{\"id\":2,\"name\":\"iPhoneXS MAX\",\"subTitle\":\"\",\"originalPrice\":0.0,\"promotePrice\":1500.0,\"stock\":100,\"category\":{\"id\":11,\"name\":\"iPhone\",\"products\":null,\"productsByRow\":null},\"createDate\":\"2019-05-03T02:18:24.000+0000\",\"firstProductImage\":{\"id\":19,\"type\":\"single\"},\"productSingleImages\":null,\"productDetailImages\":null,\"reviewCount\":0,\"saleCount\":0},\"user\":{\"id\":2,\"password\":\"12345\",\"name\":\"test\",\"salt\":null},\"order\":null,\"number\":1}],\"total\":1500.0,\"totalNumber\":1}";
+        mvc.perform(MockMvcRequestBuilders.post("/forecreateOrder")
+                .accept(MediaType.APPLICATION_JSON)
+                .content(json.getBytes())
+                .contentType(MediaType.APPLICATION_JSON)
+                .session(session)
+        )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void deleteOrderTest() throws Exception{
+        mvc.perform(MockMvcRequestBuilders.put("/foredeleteOrder")
+                .param("oid", "6")
+                .session(session)
+        )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+
+    @Test
+    public void doReviewTest() throws Exception{
+        mvc.perform(MockMvcRequestBuilders.post("/foredoreview")
+                .param("oid", "5")
+                .param("pid", "8")
+                .param("content", "good")
+                .session(session)
+        )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void reviewTest() throws Exception{
+        mvc.perform(MockMvcRequestBuilders.get("/forereview")
+                .param("oid", "5")
+                .session(session)
+        )
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
 }

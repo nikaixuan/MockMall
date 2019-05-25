@@ -1,4 +1,4 @@
-<div th:fragment="html">
+<div th:fragment="html" xmlns:th="http://www.w3.org/1999/xhtml">
     <script>
         $(function(){
             var data4Vue = {
@@ -9,7 +9,7 @@
             var vue = new Vue({
                 el: '#workingArea',
                 data: data4Vue,
-                mounted:function(){ //mounted　表示这个 Vue 对象加载成功了
+                mounted:function(){
                     this.load();
                 },
                 methods: {
@@ -206,7 +206,7 @@
         function syncPrice(pid,num,price){
             $(".orderItemNumberSetting[pid="+pid+"]").val(num);
             var cartProductItemSmallSumPrice = formatMoney(num*price);
-            $(".cartProductItemSmallSumPrice[pid="+pid+"]").html("￥"+cartProductItemSmallSumPrice);
+            $(".cartProductItemSmallSumPrice[pid="+pid+"]").html("$"+cartProductItemSmallSumPrice);
             calcCartSumPriceAndNumber();
 
             var url = "forechangeOrderItem?pid="+pid+"&num="+num;
