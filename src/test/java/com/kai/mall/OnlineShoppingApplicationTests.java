@@ -84,6 +84,31 @@ public class OnlineShoppingApplicationTests {
 		}
 	}
 
+	@Test
+	public void testGetProduct(){
+		Product product = productService.getById(1);
+		Assert.assertArrayEquals(product.getName().toCharArray(),"Test Product 1".toCharArray());
+	}
 
+	@Test
+	public void testPageProduct(){
+		Page4Navigator<Product> products = productService.list(14,0,2,3);
+	}
 
+	@Test
+	public void testListProduct(){
+		List<Product> products = productService.list();
+	}
+
+	@Test
+	public void testUpdateProduct(){
+		Product product = productService.getById(1);
+		product.setName("Test product 1000");
+		productService.update(product);
+	}
+
+	@Test
+	public void testDeleteProduct(){
+		productService.delete(2);
+	}
 }

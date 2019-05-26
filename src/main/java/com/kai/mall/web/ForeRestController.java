@@ -351,7 +351,7 @@ public class ForeRESTController {
         o.setStatus(OrderService.finish);
         orderService.update(o);
 
-        Product p = productService.get(pid);
+        Product p = productService.getById(pid);
         content = HtmlUtils.htmlEscape(content);
 
         User user =(User)  session.getAttribute("user");
