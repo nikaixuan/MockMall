@@ -64,7 +64,7 @@ public class ProductService {
         return new Page4Navigator<>(productDAO.findByCategory(category,pageable),navigatePage);
     }
 
-    @Cacheable(key="'products-all")
+    @Cacheable(key="'products-all'")
     public List<Product> list(){
         Sort sort = new Sort(Sort.Direction.DESC,"id");
         return productDAO.findAll(sort);

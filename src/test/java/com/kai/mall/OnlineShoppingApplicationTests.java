@@ -3,10 +3,7 @@ package com.kai.mall;
 import com.kai.mall.pojo.Category;
 import com.kai.mall.pojo.Product;
 import com.kai.mall.pojo.Property;
-import com.kai.mall.service.CategoryService;
-import com.kai.mall.service.OrderItemService;
-import com.kai.mall.service.ProductService;
-import com.kai.mall.service.PropertyService;
+import com.kai.mall.service.*;
 import com.kai.mall.util.Page4Navigator;
 import org.junit.Assert;
 import org.junit.Test;
@@ -32,6 +29,12 @@ public class OnlineShoppingApplicationTests {
 	OrderItemService orderItemService;
 	@Autowired
 	ProductService productService;
+	@Autowired
+	OrderService orderService;
+	@Autowired
+	PropertyService propertyService;
+	@Autowired
+	PropertyValueService propertyValueService;
 
 
 	@Test
@@ -108,7 +111,39 @@ public class OnlineShoppingApplicationTests {
 	}
 
 	@Test
-	public void testDeleteProduct(){
-		productService.delete(2);
+	public void testGetProperty(){
+		propertyService.getById(6);
 	}
+
+	@Test
+	public void testAddProperty(){
+		Category category = categoryService.get(14);
+		Property property = new Property();
+		property.setId(10);
+		property.setName("Width");
+		property.setCategory(category);
+		propertyService.add(property);
+	}
+
+	@Test
+	public void testDeleteProperty(){
+		propertyService.delete(4);
+	}
+
+	@Test
+	public void testUpdateProperty(){
+		Property property = propertyService.getById(4);
+		property.setName("phone color");
+		propertyService.update(property);
+	}
+
+
+	@Test
+	public void testListPropertyByCategory(){
+		Category category = categoryService.get(11);
+		List<Property> properties = propertyService.listByCategory(category);
+		Assert.assertEquals(properties.size(),1);
+	}
+
+
 }
