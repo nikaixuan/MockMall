@@ -3,6 +3,7 @@ package com.kai.mall;
 import com.kai.mall.pojo.Category;
 import com.kai.mall.pojo.Product;
 import com.kai.mall.pojo.Property;
+import com.kai.mall.pojo.PropertyValue;
 import com.kai.mall.service.*;
 import com.kai.mall.util.Page4Navigator;
 import org.junit.Assert;
@@ -143,6 +144,38 @@ public class OnlineShoppingApplicationTests {
 		Category category = categoryService.get(11);
 		List<Property> properties = propertyService.listByCategory(category);
 		Assert.assertEquals(properties.size(),1);
+	}
+
+
+	@Test
+	public void testGetPropertyValue(){
+		Product product = productService.getById(8);
+		List<PropertyValue> propertyValues = propertyValueService.listByProduct(product);
+		Assert.assertEquals(propertyValues.size(),3);
+	}
+
+	@Test
+	public void testGetByPropertyAndProduct(){
+		Product product = productService.getById(8);
+		Property property = propertyService.getById(5);
+		PropertyValue propertyValue = propertyValueService.getByPropertyAndProduct(property,product);
+		Assert.assertEquals(propertyValue.getValue(),"5000");
+	}
+
+	@Test
+	public void testListPropertyValueByCategory(){
+		Product product = productService.getById(3);
+		propertyValueService.init(product);
+	}
+
+	@Test
+	public void testUpdatePropertyValue(){
+		Product product = productService.getById(3);
+		Property property = propertyService.getById(8);
+		PropertyValue propertyValue = propertyValueService.getByPropertyAndProduct(property,product);
+		System.out.println(propertyValue);
+		propertyValue.setValue("4000");
+		propertyValueService.update(propertyValue);
 	}
 
 

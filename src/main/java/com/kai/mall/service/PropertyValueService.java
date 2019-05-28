@@ -39,7 +39,7 @@ public class PropertyValueService {
         }
     }
 
-    @Cacheable(key="'propertyValues-one-pid-'+#p0.id+ '-ptid-' + #p1.id")
+    @Cacheable(key="'propertyValues-one-pid-'+#p1.id+ '-ptid-' + #p0.id")
     public PropertyValue getByPropertyAndProduct(Property property, Product product){
         return propertyValueDAO.getByProductAndProperty(product,property);
     }

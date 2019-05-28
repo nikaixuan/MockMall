@@ -42,7 +42,7 @@ public class RedisConfig extends CachingConfigurerSupport {
 @Bean
 public RedisCacheManager redisCacheManager(LettuceConnectionFactory lettuceConnectionFactory) {
     RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
-            .disableCachingNullValues()
+//            .disableCachingNullValues()
             .entryTtl(Duration.ofHours(1))
             .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.json()));
     redisCacheConfiguration.usePrefix();
