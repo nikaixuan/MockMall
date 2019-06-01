@@ -29,7 +29,7 @@ public class OrderController {
         orderService.removeOrderFromOrderItem(page.getContent());
         return page;
     }
-    @PutMapping("deliveryOrder/{oid}")
+    @PutMapping("/deliveryOrder/{oid}")
     public Object deliveryOrder(@PathVariable int oid) throws IOException {
         Order o = orderService.get(oid);
         o.setDeliveryDate(new Date());

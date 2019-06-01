@@ -15,7 +15,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -35,6 +38,8 @@ public class OnlineShoppingApplicationTests {
 	PropertyValueService propertyValueService;
 	@Autowired
 	ReviewService reviewService;
+	@Autowired
+	UserService userService;
 
 
 
@@ -46,7 +51,6 @@ public class OnlineShoppingApplicationTests {
 	public void testAddCategory(){
 		for (int i=100;i<=101;i++){
 			Category c = new Category();
-			c.setId(i);
 			c.setName("Test Category "+i);
 			categoryService.add(c);
 		}
@@ -71,22 +75,22 @@ public class OnlineShoppingApplicationTests {
 	}
 
 	@Test
-	public void testDeleteCategory(){
-		List<Category> categories = categoryService.list();
-//		categoryService.delete(1);
-//		categoryService.delete(2);
-//		Assert.assertEquals(2,categories.size());
-	}
-
-	@Test
 	public void testAddProduct(){
 		for (int i=1;i<=2;i++){
 			Product p = new Product();
-			p.setId(i);
 			p.setName("Test Product "+i);
 			productService.add(p);
 		}
 	}
+
+	@Test
+	public void testDeleteCategory(){
+		List<Category> categories = categoryService.list();
+		categoryService.delete(29);
+		categoryService.delete(30);
+	}
+
+
 
 	@Test
 	public void testGetProduct(){
@@ -126,10 +130,10 @@ public class OnlineShoppingApplicationTests {
 		propertyService.add(property);
 	}
 
-//	@Test
-//	public void testDeleteProperty(){
-//		propertyService.delete(4);
-//	}
+	@Test
+	public void testDeleteProperty(){
+		propertyService.delete(10);
+	}
 
 	@Test
 	public void testUpdateProperty(){
@@ -178,7 +182,37 @@ public class OnlineShoppingApplicationTests {
 		propertyValueService.update(propertyValue);
 	}
 
+	@Test
+	public void testGetAndUpdateOrder(){
+		Order order = orderService.get(1);
+		order.setAddress("abc carlton");
+		orderService.update(order);
+	}
 
+//	@Test
+//	public void testAddOrder(){
+//		List<OrderItem> ois = new ArrayList<>();
+//		OrderItem oi1 = orderItemService.get(11);
+//		OrderItem oi2 = orderItemService.get(10);
+//		ois.add(oi1);
+//		ois.add(oi2);
+//		Order order = orderService.get(5);
+//		orderService.add(order,ois);
+//
+////		OrderItem mockOI = Mockito.mock(OrderItem.class);
+////		when(mockOI.getProduct().getPromotePrice()).thenReturn(10.5f);
+//
+//	}
 
+	@Test
+	public void testListOrder(){
+		orderService.list(1,2,2);
+	}
+
+	@Test
+	public void testListOrderByUser(){
+		User user = userService.findById(2);
+		orderService.listByUserWithoutDelete(user);
+	}
 
 }
